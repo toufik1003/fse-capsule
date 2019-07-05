@@ -1,0 +1,51 @@
+--run the below script to create the database
+
+--ddl script
+CREATE DATABASE taskmanager;
+use taskmanager;
+
+CREATE TABLE taskmanager.parent_task (
+  parent_task_id INT NOT NULL AUTO_INCREMENT,
+  parent_task_name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (parent_task_id)
+  );
+  
+CREATE TABLE taskmanager.task (
+  task_id INT NOT NULL AUTO_INCREMENT,
+  task_name VARCHAR(255) NOT NULL,
+  parent_task_id INT NULL,
+  priority INT NULL,
+  start_date DATE NULL,
+  end_date DATE NULL,
+  task_end BOOLEAN NULL,
+  PRIMARY KEY (task_id),
+  FOREIGN KEY (parent_task_id)
+        REFERENCES parent_task(parent_task_id)
+        ON DELETE NO ACTION
+  ); 
+  
+-- insert script
+INSERT INTO taskmanager.parent_task(parent_task_name) VALUES ("PARENT TASK1");
+INSERT INTO taskmanager.parent_task(parent_task_name) VALUES ("PARENT TASK2");
+INSERT INTO taskmanager.parent_task(parent_task_name) VALUES ("PARENT TASK3");
+
+
+run java service
+
+copy the file 'taskmanager-service-0.0.1-SNAPSHOT.jar' into any directory
+run 'java -jar taskmanager-service-0.0.1-SNAPSHOT' from command line
+
+service started
+
+run ui
+
+extract the taskmanager-ui.zip anywhere
+run 'npm install'
+run 'ng build'
+run 'ng serve'
+
+ui started
+
+open browser and type 'http://localhost:4200/'
+
+
